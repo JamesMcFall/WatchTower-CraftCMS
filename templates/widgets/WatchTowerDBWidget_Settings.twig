@@ -1,0 +1,26 @@
+{#
+/**
+ * WatchTowerDB plugin for Craft CMS
+ *
+ * WatchTowerDBWidget Settings
+ *
+ * @author    James McFall
+ * @copyright Copyright (c) 2016 James McFall
+ * @link      http://mcfall.geek.nz
+ * @package   WatchTowerDB
+ * @since     0.1
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% includeCssResource "watchtowerdb/css/WatchTowerDB_Style.css" %}
+{% includeJsResource "watchtowerdb/js/WatchTowerDB_Script.js" %}
+
+{{ forms.textField({
+    label: 'Some Setting',
+    instructions: 'Enter some setting here.',
+    id: 'someSetting',
+    name: 'someSetting',
+    value: settings['someSetting']})
+}}
