@@ -21,17 +21,51 @@ WatchTowerDB works on Craft 2.4.x and Craft 2.5.x.
 
 ## Configuring WatchTowerDB
 
--Insert text here-
+After WatchTowerDB has been installed, go into the plugin settings and set the email address you want error emails to go to.
+
+![Screenshot](resources/screenshots/settings.png)
 
 ## Using WatchTowerDB
 
--Insert text here-
+### Basic logging
+
+Logging is very straightforward. The first parameter specifies which stream (analogous to a log file or category of errors) you want to write into (note if the log stream doesn't exist, it will be created automatically). The second parameter is the message to put in the log stream.
+
+```php
+# Note the first parameter is the logging stream (ie an individual log)
+craft()->watchTowerDB->log("registration", "Oh no. Steve tried to enrol again. Don't worry, we stopped him!");
+```
+
+### Sending a notification email out when an error is logged.
+If you want to notify the webmaster(s) when a particular kind of error is logged, the fourth parameter (a boolean) should be passed as true;
+
+```php
+# Note the fourth parameter is now "true". This is the "Notify" parameter.
+craft()->watchTowerDB->log("registration", "Oh no. Steve tried to enrol again. Don't worry, we stopped him!", null, true);
+```
+
+### Logging Extra Debugging Info
+
+If you want to include more information
+
+```php
+# Note the third parameter is an optional variable (i.e. an object or array) that will be saved to the database.
+
+$extraInfo = [
+    "registrationFormData" => $_POST,
+    "likesCake" => true,
+];
+
+craft()->watchTowerDB->log("registration", "Oh no. Steve tried to enrol again. Don't worry, we stopped him!", $extraInfo);
+```
+
+
 
 ## WatchTowerDB Roadmap
 
 Some things to do, and ideas for potential features:
 
-* Release it
+@todo
 
 ## WatchTowerDB Changelog
 
