@@ -46,7 +46,7 @@ craft()->watchTowerDB->log("registration", "Oh no. Steve tried to enrol again. D
 
 ### Logging Extra Debugging Info
 
-If you want to include more information
+If you want to include more information, like dumping an API response or supplying an object that triggered your WatchTower call, you can include it as the third parameter. Whatever is supplied will be dumped into the output buffer, formatted then saved to the database in a "debugInfo" field.
 
 ```php
 # Note the third parameter is an optional variable (i.e. an object or array) that will be saved to the database.
@@ -59,13 +59,18 @@ $extraInfo = [
 craft()->watchTowerDB->log("registration", "Oh no. Steve tried to enrol again. Don't worry, we stopped him!", $extraInfo);
 ```
 
+### Looking Up Errors
+WatchTower is currently a database only plugin. There's no admin panel browsing or widget functionality (although there will be at a later date). So to browse you will need to use MySQL or phpMyAdmin.
+
+![Screenshot](resources/screenshots/result.png)
 
 
 ## WatchTowerDB Roadmap
 
 Some things to do, and ideas for potential features:
 
-@todo
+- Admin panel widget.
+- Admin panel browse error functionality.
 
 ## WatchTowerDB Changelog
 
