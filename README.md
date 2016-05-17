@@ -2,7 +2,7 @@
 
 A CraftCMS logging system derived from my CodeIgniter based WatchTowerDB-CI logging system (https://github.com/JamesMcFall/WatchTowerDB-CI-Logging).
 
-![Screenshot](resources/screenshots/plugin_logo.png)
+![Screenshot](resources/images/watchtower-logo.png)
 
 ## Installation
 
