@@ -17,7 +17,9 @@ WatchTowerDB works on Craft 2.4.x and Craft 2.5.x.
 
 ## WatchTowerDB Overview
 
--Insert text here-
+When you're working on sites that have API integrations, web services or cron jobs, Craft's built in logging can be too passive and not include enough information. 
+
+With WatchTower you can make your Craft site email for help when something fails, or easily log much more contextual information about why an error occurred. See below for some usage examples. 
 
 ## Configuring WatchTowerDB
 
