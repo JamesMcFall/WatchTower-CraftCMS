@@ -4,15 +4,6 @@
  *
  * A CraftCMS logging system derived from my CodeIgniter based WatchTowerDB-CI logging system (https://github.com/JamesMcFall/WatchTowerDB-CI-Logging).
  *
- * --snip--
- * Craft plugins are very much like little applications in and of themselves. We’ve made it as simple as we can,
- * but the training wheels are off. A little prior knowledge is going to be required to write a plugin.
- *
- * For the purposes of the plugin docs, we’re going to assume that you know PHP and SQL, as well as some semi-
- * advanced concepts like object-oriented programming and PHP namespaces.
- *
- * https://craftcms.com/docs/plugins/introduction
- * --snip--
  *
  * @author    James McFall
  * @copyright Copyright (c) 2016 James McFall
@@ -31,7 +22,7 @@ class WatchTowerDBPlugin extends BasePlugin
      */
     public function init()
     {
-        # craft()->watchTowerDB->log("integration-error", "Failed to integrate!", true, ["test" => time()]);
+        #craft()->watchTowerDB->log("integration-error", "Failed to integrate!", true, ["test" => time()]);
     }
 
     /**
@@ -171,7 +162,7 @@ class WatchTowerDBPlugin extends BasePlugin
     protected function defineSettings()
     {
         return array(
-            'someSetting' => array(AttributeType::String, 'label' => 'Some Setting', 'default' => ''),
+            'webmasterEmail' => array(AttributeType::String, 'label' => 'Webmaster Email', 'default' => ''),
         );
     }
 

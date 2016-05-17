@@ -16,7 +16,7 @@ namespace Craft;
 class WatchTowerDBService extends BaseApplicationComponent
 {
 
-    public function log($streamName, $message, $notify = false, $debugInfo = null) {
+    public function log($streamName, $message, $debugInfo = null, $notify = false) {
 
         # Get the stream record (WatchTowerDB_StreamRecord).
         $stream = $this->_createStreamIfNotExists($streamName);
@@ -93,6 +93,8 @@ class WatchTowerDBService extends BaseApplicationComponent
      */
     private function _sendNotificationEmail($log, $stream) {
 
+        $webmasterEmails = explode(",", $this->getWebmasterEmail());
+
         # Build the basic HTML message for the email
         $htmlMessage = "<h3>WatchTower Alert: " . $_SERVER['HTTP_HOST'] . "</h3>";
         $htmlMessage .= "<b>Time:</b> " . $log->dateCreated->format("Y-m-d H:i:s") . "<br /><br />"; # @todo Add settings for date/time format?
@@ -105,17 +107,25 @@ class WatchTowerDBService extends BaseApplicationComponent
 
         # Send an email to the webmaster
         # @todo make the from address and email details come from settings
-        $email = new EmailModel();
-        $email->fromEmail = 'no_reply@' . $_SERVER["HTTP_HOST"];
-        $email->fromName  = 'WatchTower Craft Logger';
-        $email->toEmail   = "james.mcfall@pitchstudio.co.nz";
-        $email->subject   = "WatchTower Alert: " . $_SERVER["HTTP_HOST"];
-        $email->body      = $htmlMessage;
+        $emailModel = new EmailModel();
+        $emailModel->fromEmail = 'no_reply@' . $_SERVER["HTTP_HOST"];
+        $emailModel->fromName  = 'WatchTower Craft Logger';
+        $emailModel->subject   = "WatchTower Alert: " . $_SERVER["HTTP_HOST"];
+        $emailModel->body      = $htmlMessage;
         
-        craft()->email->sendEmail($email);
+        # Craft doesn't support sending to multiple emails... weird.
+        foreach ($webmasterEmails as $email) {
+            $email = trim($email);
+
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $emailModel->toEmail = $email;
+                craft()->email->sendEmail($emailModel);        
+            }
+            
+        }
 
         # Update the log record now that the webmaster has been notified.
-        $log->notifiedWebmaster = "Yes";
+        $log->notifiedWebmaster = implode(", ", $webmasterEmails);
         $log->save();
 
     }
@@ -133,6 +143,19 @@ class WatchTowerDBService extends BaseApplicationComponent
         var_dump($var);
         echo "</pre>";
         return ob_get_clean();
+    }
+
+    /**
+     * Get webmaster email from settings
+     *
+     * @return <string> Email address
+     */
+    private function getWebmasterEmail() {
+
+        $plugin = craft()->plugins->getPlugin('WatchTowerDB');
+        $settings = $plugin->getSettings();
+
+        return $settings->webmasterEmail;
     }
 
 }

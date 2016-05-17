@@ -56,7 +56,7 @@ class WatchTowerDB_LogRecord extends BaseRecord
             'streamId' => array(AttributeType::Number, 'default' => '0'),
             'message' => array(AttributeType::String, 'default' => ''),
             'debugInfo' => array(AttributeType::String, 'column' => ColumnType::Text, 'default' => ''),
-            'notifiedWebmaster' => array(AttributeType::Enum, 'values' => "Yes, No", 'default' => 'No'),
+            'notifiedWebmaster' => array(AttributeType::String, 'default' => ''),
         );
     }
 
