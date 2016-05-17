@@ -40,6 +40,8 @@ class WatchTowerDBPlugin extends BasePlugin
      */
     public function init()
     {
+        craft()->watchTowerDB->log("monkeys6", "Sup dawg", true);
+        exit("Bah");
     }
 
     /**

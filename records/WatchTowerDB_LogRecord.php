@@ -31,7 +31,7 @@
 
 namespace Craft;
 
-class WatchTowerDBRecord extends BaseRecord
+class WatchTowerDB_LogRecord extends BaseRecord
 {
     /**
      * Returns the name of the database table the model is associated with (sans table prefix). By convention,
@@ -41,7 +41,7 @@ class WatchTowerDBRecord extends BaseRecord
      */
     public function getTableName()
     {
-        return 'watchtowerdb';
+        return 'watchtowerdb_logs';
     }
 
     /**
@@ -53,7 +53,10 @@ class WatchTowerDBRecord extends BaseRecord
    protected function defineAttributes()
     {
         return array(
-            'someField'     => array(AttributeType::String, 'default' => ''),
+            'streamId' => array(AttributeType::Number, 'default' => '0'),
+            'message' => array(AttributeType::String, 'default' => ''),
+            'debugInfo' => array(AttributeType::String, 'column' => ColumnType::Text, 'default' => ''),
+            'notifiedWebmaster' => array(AttributeType::Enum, 'values' => "Yes, No", 'default' => 'No'),
         );
     }
 
@@ -66,6 +69,7 @@ class WatchTowerDBRecord extends BaseRecord
     public function defineRelations()
     {
         return array(
+
         );
     }
 }

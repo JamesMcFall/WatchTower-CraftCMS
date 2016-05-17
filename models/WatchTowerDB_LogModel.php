@@ -20,7 +20,7 @@
 
 namespace Craft;
 
-class WatchTowerDBModel extends BaseModel
+class WatchTowerDB_LogModel extends BaseModel
 {
     /**
      * Defines this model's attributes.
