@@ -16,7 +16,7 @@ namespace Craft;
 class WatchTowerDBService extends BaseApplicationComponent
 {
 
-    public function log($streamName, $message, $notify = false, $debugInfo = '') {
+    public function log($streamName, $message, $notify = false, $debugInfo = null) {
 
         # Get the stream record (WatchTowerDB_StreamRecord).
         $stream = $this->_createStreamIfNotExists($streamName);
@@ -47,7 +47,12 @@ class WatchTowerDBService extends BaseApplicationComponent
         $logRecord = new WatchTowerDB_LogRecord();
         $logRecord->streamId = $stream->id;
         $logRecord->message = $message;
-        $logRecord->debugInfo = $debugInfo;
+
+        # If some debug info has been supplied (object/array) dump it onto the output buffer and save as a string.
+        if (!is_null($debugInfo)) {
+            $logRecord->debugInfo = $this->_dump($debugInfo);
+        }
+        
         $logRecord->save();
 
         return $logRecord;
@@ -113,6 +118,21 @@ class WatchTowerDBService extends BaseApplicationComponent
         $log->notifiedWebmaster = "Yes";
         $log->save();
 
+    }
+
+
+    /**
+     * Dump a variable into the output buffer and catch it as a string.
+     * 
+     * @param <any> $var
+     * @return <string> 
+     */
+    private function _dump($var) {
+        ob_start();
+        echo "<pre>";
+        var_dump($var);
+        echo "</pre>";
+        return ob_get_clean();
     }
 
 }

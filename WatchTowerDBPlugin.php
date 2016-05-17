@@ -27,21 +27,11 @@ class WatchTowerDBPlugin extends BasePlugin
 {
     /**
      * Called after the plugin class is instantiated; do any one-time initialization here such as hooks and events:
-     *
-     * craft()->on('entries.saveEntry', function(Event $event) {
-     *    // ...
-     * });
-     *
-     * or loading any third party Composer packages via:
-     *
-     * require_once __DIR__ . '/vendor/autoload.php';
-     *
-     * @return mixed
+     * @return <void>
      */
     public function init()
     {
-        craft()->watchTowerDB->log("monkeys6", "Sup dawg", true);
-        exit("Bah");
+        # craft()->watchTowerDB->log("integration-error", "Failed to integrate!", true, ["test" => time()]);
     }
 
     /**
